@@ -23,21 +23,44 @@ export default function Contact() {
     setIsSubmitting(true);
     
     try {
-      // Create mailto link with form data
+      // Send email directly using EmailJS or similar service
+      const response = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          to: 'subhrajitmukh1234@gmail.com',
+          subject: formData.subject || 'Project Inquiry',
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+        }),
+      });
+
+      if (response.ok) {
+        toast.success('Message sent successfully!');
+      } else {
+        // Fallback to mailto if API fails
+        const subject = encodeURIComponent(formData.subject || 'Project Inquiry');
+        const body = encodeURIComponent(
+          `Hi Subhrajit,\n\nName: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}\n\nBest regards,\n${formData.name}`
+        );
+        const mailtoLink = `mailto:subhrajitmukh1234@gmail.com?subject=${subject}&body=${body}`;
+        window.location.href = mailtoLink;
+        toast.success('Email client opened! Your message is ready to send.');
+      }
+      
+      setFormData({ name: '', email: '', subject: '', message: '' });
+    } catch (error) {
+      // Fallback to mailto on error
       const subject = encodeURIComponent(formData.subject || 'Project Inquiry');
       const body = encodeURIComponent(
         `Hi Subhrajit,\n\nName: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}\n\nBest regards,\n${formData.name}`
       );
       const mailtoLink = `mailto:subhrajitmukh1234@gmail.com?subject=${subject}&body=${body}`;
-      
-      // Open email client
       window.location.href = mailtoLink;
-      
-      // Show success message and reset form
       toast.success('Email client opened! Your message is ready to send.');
-      setFormData({ name: '', email: '', subject: '', message: '' });
-    } catch (error) {
-      toast.error('Something went wrong. Please try again or email directly.');
     } finally {
       setIsSubmitting(false);
     }

@@ -80,7 +80,13 @@ export default function Hero() {
               size="lg"
               className="border-2 border-gray-300 hover:border-blue-600 text-gray-700 hover:text-blue-600 px-6 sm:px-8 py-3 text-base sm:text-lg rounded-full transition-all duration-300 w-full sm:w-auto"
             >
-              View My Work
+              <a 
+                href="/cv.pdf" 
+                download="Subhrajit_Mukherjee_CV.pdf"
+                className="flex items-center"
+              >
+                Download CV
+              </a>
               <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
             </Button>
           </motion.div>

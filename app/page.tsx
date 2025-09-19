@@ -5,6 +5,7 @@ import Projects from '@/components/sections/Projects';
 import Experience from '@/components/sections/Experience';
 import Contact from '@/components/sections/Contact';
 import Navigation from '@/components/Navigation';
+import Footer from '@/components/Footer';
 import { Toaster } from '@/components/ui/sonner';
 
 export default function Home() {
@@ -17,6 +18,7 @@ export default function Home() {
       <Projects />
       <Experience />
       <Contact />
+      <Footer />
       <Toaster />
     </main>
   );
